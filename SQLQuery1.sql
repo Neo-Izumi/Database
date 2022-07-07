@@ -101,7 +101,6 @@ INSERT Assignment(AsnID, Major, Lecturer) VALUES ('GJPD', 'JPD113', 'GVG');
 
 INSERT Assignment(AsnID, Major, Lecturer) VALUES ('IMAE', 'MAE101', 'GVI');
 INSERT Assignment(AsnID, Major, Lecturer) VALUES ('JMAE', 'MAE101', 'GVJ');
-INSERT Assignment(AsnID, Major, Lecturer) VALUES ('HPRF', 'PRF192', 'GVH');
 INSERT Assignment(AsnID, Major, Lecturer) VALUES ('ISSL', 'SSL101c', 'GVI');
 
 INSERT Assignment(AsnID, Major, Lecturer) VALUES ('JMAD', 'MAD101', 'GVJ');
@@ -113,3 +112,101 @@ INSERT Assignment(AsnID, Major, Lecturer) VALUES ('APRO', 'PRO192', 'GVA');
 
 
 SELECT * FROM Assignment
+
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22ACSD', 'ACSD', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22CLAB', 'CLAB', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22DLAB', 'DLAB', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22FJPD', 'FJPD', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22GJPD', 'GJPD', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22JMAD', 'JMAD', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22BNWC', 'BNWC', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22HOSG', 'HOSG', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22FSSG', 'FSSG', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22GSSG', 'GSSG', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22APRO', 'APRO', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22HCEA', 'HCEA', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22JCEA', 'JCEA', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22KCSI', 'KCSI', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22IMAE', 'IMAE', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22HPRF', 'HPRF', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SP22ISSL', 'ISSL', 'SPRING 2022', CAST('01-01-2022' AS date), CAST('04-01-2022' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21ECSD', 'ECSD', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21BIAO', 'BIAO', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21CLAB', 'CLAB', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21ICSI', 'ICSI', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21IMAE', 'IMAE', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21ISSL', 'ISSL', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21HPRF', 'HPRF', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21JMAD', 'JMAD', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21BNWC', 'BNWC', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21HOSG', 'HOSG', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21GSSG', 'GSSG', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('FA21APRO', 'APRO', 'FALL 2021', CAST('09-01-2021' AS date), CAST('12-01-2021' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21JCEA', 'JCEA', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21KCSI', 'KCSI', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21ISSL', 'ISSL', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21JMAD', 'JMAD', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21BNWC', 'BNWC', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21HOSG', 'HOSG', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21FSSG', 'FSSG', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21APRO', 'APRO', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21ACSD', 'ACSD', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21ADBI', 'ADBI', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21BIAO', 'BIAO', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21CLAB', 'CLAB', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+INSERT Classes(ClassID, AsnID, Semester, [Start Date], [End Date]) VALUES ('SU21FJPD', 'FJPD', 'SUMMER 2021', CAST('05-01-2021' AS date), CAST('08-01-2021' AS date));
+
+
+SELECT * FROM Classes
+SELECT * FROM Groups
+
+INSERT Enroll(ClassID, GrID) VALUES ('SU21KCSI', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SU21IMAE', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SU21JCEA', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21JMAD', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22BCSD', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22ADBI', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22FJPD', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22BIAO', 'IA1604')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22CLAB', 'IA1604')
+
+INSERT Enroll(ClassID, GrID) VALUES ('FA21IMAE', 'IA1608')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21ICSI', 'IA1608')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21HPRF', 'IA1608')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21ISSL', 'IA1608')
+
+INSERT Enroll(ClassID, GrID) VALUES ('SP22IMAE', 'AI1605')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22HPRF', 'AI1605')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22ISSL', 'AI1605')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22JCEA', 'AI1605')
+INSERT Enroll(ClassID, GrID) VALUES ('SP22KCSI', 'AI1605')
+
+INSERT Enroll(ClassID, GrID) VALUES ('FA21DDBI', 'IOT1607')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21ECSD', 'IOT1607')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21CLAB', 'IOT1607')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21FJPD', 'IOT1607')
+INSERT Enroll(ClassID, GrID) VALUES ('FA21BIAO', 'IOT1607')
+
+
+SELECT * FROM Enroll
+
+
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('AS', 'Assignment ', 'On-Going', '>0');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('LAB', 'Lab', 'On-Going', '>0');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('LOC', 'Line of Code', 'On-Going', '>=750');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('PT', 'Progress Test', 'On-Going', '>0');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('PE', 'Practical Exam', 'On-Going', '>0');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('FE', 'Final Exam', 'Final Exam', '>4');
+INSERT Categories(CatID, [Name], [Type], [Completion Criteria]) VALUES ('FER', 'Final Exam Retake', 'Final Exam', '>4');
+
+
+SELECT * FROM Categories
