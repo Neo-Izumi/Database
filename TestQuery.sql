@@ -43,3 +43,16 @@ FROM
 		INNER JOIN Grade ON CA.AsID = Grade.AsID AND  Grade.Mssv = J.Mssv  
 GROUP BY J.Mssv, CouID, CA.ClassID
 ORDER BY J.Mssv
+
+SELECT Students.Mssv, Classes.ClassID, AsnID, [AS].CouID, [AS].CatID, [AS].AsID, Semester, [Start Date], [End Date]
+FROM 
+	(SELECT * FROM [Join] WHERE GrID = 'IA1608') AS IA1608
+		INNER JOIN Students ON Students.Mssv = IA1608.Mssv
+		INNER JOIN Enroll ON Enroll.GrID = IA1608.GrID
+		INNER JOIN Classes ON Classes.ClassID = Enroll.ClassID
+		INNER JOIN Assess ON Assess.ClassID = Classes.ClassID
+		INNER JOIN [Assessment System] AS [AS] ON [AS].AsID = Assess.AsID
+--WHERE Students.Mssv = 'HE00003' AND [End Date] = '2021-08-01'
+ORDER BY 1
+
+SELECT * FROM Enroll WHERE GrID = 'IA1608'
