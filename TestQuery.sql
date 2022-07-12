@@ -42,7 +42,7 @@ FROM
 			ON Enroll.ClassID = CA.ClassID
 		INNER JOIN Grade ON CA.AsID = Grade.AsID AND  Grade.Mssv = J.Mssv  
 GROUP BY J.Mssv, CouID, CA.ClassID
-ORDER BY J.Mssv
+ORDER BY J.Mssv, ClassID
 
 SELECT Students.Mssv, Classes.ClassID, AsnID, [AS].CouID, [AS].CatID, [AS].AsID, Semester, [Start Date], [End Date]
 FROM 
@@ -56,3 +56,36 @@ FROM
 ORDER BY 1
 
 SELECT * FROM Enroll WHERE GrID = 'IA1608'
+
+CREATE INDEX Stu_Name ON Students([Last Name], [First Name])
+
+CREATE INDEX Lec_Name ON Lecturers([Last Name], [First Name])
+
+
+CREATE VIEW View_Assess_AssessSystem AS
+SELECT Classes.ClassID, Enroll.GrID, AsnID, Semester, [Start Date], [End Date], Assess.AsID, [AS].CouID, [AS].CatID, [Number of Questions], Duration, [Weight]
+FROM 
+	Classes INNER JOIN Enroll ON Classes.ClassID = Enroll.ClassID
+			INNER JOIN Assess ON Classes.ClassID = Assess.ClassID
+			INNER JOIN [Assessment System] AS [AS] ON [AS].AsID = Assess.AsID 
+
+SELECT * FROM View_Assess_AssessSystem ORDER BY GrID, ClassID
+
+
+CREATE TRIGGER View_Average ON [View]
+AFTER INSERT, UPDATE
+AS
+-- 210
+SELECT J.Mssv, VAA.GrID, VAA.ClassID, VAA.CouID, SUM(Score * [Weight]) AS Average 
+FROM 
+	[Join] AS J INNER JOIN Enroll ON J.GrID = Enroll.GrID
+				INNER JOIN [dbo].View_Assess_AssessSystem AS VAA ON VAA.ClassID = Enroll.ClassID AND VAA.GrID = J.GrID
+				INNER JOIN Grade ON J.Mssv = Grade.Mssv AND Grade.AsID = VAA.AsID
+GROUP BY J.Mssv, VAA.ClassID, VAA.CouID, VAA.GrID
+ORDER BY 1, 2
+
+SELECT * FROM Enroll
+
+SELECT * FROM Grade
+	
+
