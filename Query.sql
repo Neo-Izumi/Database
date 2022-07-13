@@ -10,6 +10,7 @@ CREATE INDEX Lec_Name ON Lecturers([Last Name], [First Name])
 SELECT * FROM Students WHERE [Last Name] = N'Nguyễn Văn' AND [First Name] = 'A'
 
 -- VIEW --
+
 CREATE VIEW View_Assess_AssessSystem AS
 SELECT Classes.ClassID, Enroll.GrID, AsnID, Semester, [Start Date], [End Date], Assess.AsID, [AS].CouID, [AS].CatID, [Number of Questions], Duration, [Weight]
 FROM 
@@ -20,6 +21,7 @@ FROM
 SELECT * FROM View_Assess_AssessSystem
 
 -- TRIGGER -- 
+
 CREATE TRIGGER View_Average ON [View]
 AFTER INSERT, UPDATE
 AS
@@ -58,6 +60,7 @@ AS
 	SELECT * FROM [View]
 
 -- STORED PROCEDURE -- 
+
 CREATE PROCEDURE Count_Student
 	@GR VARCHAR(50),
 	@COUNT INT OUT
@@ -95,6 +98,7 @@ FROM
 			  INNER JOIN Classes ON Assignment.AsnID = Classes.AsnID
 GROUP BY Lecturers.LecID, [Last Name], [First Name], Semester
 
+
 -- 4: A QUERY THAT USES GROUP BY AND HAVING -- 
 
 SELECT LecID, [Last Name], [First Name], Semester, Enroll.GrID, Enroll.ClassID, COUNT(Mssv) AS [Num of Students]    
@@ -106,7 +110,89 @@ FROM
 GROUP BY LecID, [Last Name], [First Name], Semester, Enroll.GrID, Enroll.ClassID
 HAVING LecID = 'GVA'
 
+
 -- 5: A QUERY THAT USES A SUB-QUERY AS A RELATION --
+
+SELECT LEC.LecID, LEC.[Last Name], LEC.[First Name], Major, Semester, CouID, [AS].CatID
+FROM 
+	(SELECT LecID,[Last Name], [First Name] FROM Lecturers) AS LEC
+		INNER JOIN 
+			Assignment 
+			ON Assignment.Lecturer = LecID
+		INNER JOIN 
+			(SELECT ClassID, AsnID, Semester FROM Classes) AS CLASS 
+			ON Assignment.AsnID = CLASS.AsnID
+		INNER JOIN 
+			Assess 
+			ON Assess.ClassID = CLASS.ClassID
+		INNER JOIN
+			(SELECT AsID, CouID, CatID FROM [Assessment System]) AS [AS]
+			ON Assess.AsID = [AS].AsID
+		INNER JOIN 
+			Categories
+			ON [AS].CatID = Categories.CatID
+ORDER BY LEC.LecID, Major, Semester, CatID
+
+
+-- 6: A QUERY THAT USES A SUB-QUERY IN THE WHERE CLAUSE --
+
+SELECT J.Mssv, J.GrID, Enroll.ClassID, CONCAT([Last Name], ' ', [First Name]) AS Lecture, CouID, CatID, Score, [Date]  
+FROM
+	[Join] AS J INNER JOIN Enroll ON J.GrID = Enroll.GrID
+				INNER JOIN View_Assess_AssessSystem AS VAA ON Enroll.ClassID = VAA.ClassID AND Enroll.GrID = VAA.GrID
+				INNER JOIN Assignment ON Assignment.AsnID = VAA.AsnID 
+				INNER JOIN Lecturers ON Assignment.Lecturer = Lecturers.LecID
+				INNER JOIN Grade ON Grade.Mssv = J.Mssv AND Grade.AsID = VAA.AsID 
+WHERE J.Mssv = (SELECT Mssv FROM Students WHERE [First Name] = 'A' AND [Last Name] = N'Nguyễn Văn')
+
+
+-- 7: A QUERY THAT USES PARTIAL MATCHING IN THE WHERE CLAUSE --
+
+SELECT J.Mssv, CONCAT([Last Name], ' ', [First Name]) AS [Student Name], ClassID, Average, [Status]
+FROM 
+	Students INNER JOIN [Join] AS J ON Students.Mssv = J.Mssv 
+			 INNER JOIN [View] AS V ON J.Mssv = V.Mssv
+WHERE ClassID LIKE 'FA21%'
+
+
+-- 8: A QUERY THAT USES A SELF-JOIN --
+
+SELECT Lecturers.LecID, Lecturers.Email, CONCAT(Lecturers.[Last Name], ' ', Lecturers.[First Name]) AS Lecture, CONCAT(LEADER.[Last Name], ' ', LEADER.[First Name]) AS [Leader] 
+FROM Lecturers LEFT JOIN Lecturers AS [LEADER] ON Lecturers.Report = LEADER.LecID
+
+
+-- 9 --
+
+SELECT Lecturers.LecID, Lecturers.Email, CONCAT(Lecturers.[Last Name], ' ', Lecturers.[First Name]) AS Lecture, Report, Major, Courses.[Name], Semester, Students.Mssv, CONCAT(Students.[Last Name], ' ', Students.[First Name]) AS [Student Name], Students.Email, Students.Gender
+FROM
+	Lecturers INNER JOIN Assignment ON Lecturers.LecID = Assignment.Lecturer
+			  INNER JOIN Courses ON Courses.CouID = Assignment.Major
+			  INNER JOIN Classes ON Classes.AsnID = Assignment.AsnID
+			  INNER JOIN Enroll ON Classes.ClassID = Enroll.ClassID
+			  INNER JOIN [Join] ON [Join].GrID = Enroll.GrID
+			  INNER JOIN Students ON Students.Mssv = [Join].Mssv
+ORDER BY Lecturers.LecID, Semester, Students.Mssv, Major
+
+
+-- 10 --
+
+SELECT Lecturers.LecID, Lecturers.Email AS [Lecturer Email], CONCAT(Lecturers.[Last Name], ' ', Lecturers.[First Name]) AS Lecture, J.GrID, CouID, J.Mssv, CONCAT(Students.[Last Name], ' ', Students.[First Name]) AS [Student Name], CatID, Score, [Date]
+FROM
+	Lecturers INNER JOIN Assignment ON Lecturers.LecID = Assignment.Lecturer
+			  INNER JOIN View_Assess_AssessSystem AS VAA ON VAA.AsnID = Assignment.AsnID
+			  INNER JOIN Enroll ON Enroll.ClassID = VAA.ClassID
+			  INNER JOIN [Join] AS J ON J.GrID = Enroll.GrID
+			  INNER JOIN Students ON Students.Mssv = J.Mssv
+			  INNER JOIN Grade ON J.Mssv = Grade.Mssv AND VAA.AsID = Grade.AsID
+			  
+
+
+
+
+
+			 
+	
+
 
 
 

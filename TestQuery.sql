@@ -72,20 +72,56 @@ FROM
 SELECT * FROM View_Assess_AssessSystem ORDER BY GrID, ClassID
 
 
-CREATE TRIGGER View_Average ON [View]
+ALTER TRIGGER View_Average ON [View]
 AFTER INSERT, UPDATE
 AS
--- 210
-SELECT J.Mssv, VAA.GrID, VAA.ClassID, VAA.CouID, SUM(Score * [Weight]) AS Average 
-FROM 
-	[Join] AS J INNER JOIN Enroll ON J.GrID = Enroll.GrID
-				INNER JOIN [dbo].View_Assess_AssessSystem AS VAA ON VAA.ClassID = Enroll.ClassID AND VAA.GrID = J.GrID
-				INNER JOIN Grade ON J.Mssv = Grade.Mssv AND Grade.AsID = VAA.AsID
-GROUP BY J.Mssv, VAA.ClassID, VAA.CouID, VAA.GrID
-ORDER BY 1, 2
+	DECLARE @AVG FLOAT;
+	DECLARE @CLASS VARCHAR(50);
+	DECLARE @STU VARCHAR(50);
+	DECLARE @AVERAGE FLOAT;
+	DECLARE @STA VARCHAR(50);
+	SELECT @STU = Mssv, @CLASS = ClassID, @AVG = Average, @STA = [Status] FROM inserted;
 
-SELECT * FROM Enroll
+	SELECT @AVERAGE = SUM(Score * [Weight])  
+	FROM 
+		[Join] AS J INNER JOIN Enroll ON J.GrID = Enroll.GrID
+					INNER JOIN [dbo].View_Assess_AssessSystem AS VAA ON VAA.ClassID = Enroll.ClassID AND VAA.GrID = J.GrID
+					INNER JOIN Grade ON J.Mssv = Grade.Mssv AND Grade.AsID = VAA.AsID
+	WHERE J.Mssv = @STU AND VAA.ClassID = @CLASS
+	GROUP BY J.Mssv, VAA.ClassID, VAA.CouID, VAA.GrID
+	IF @AVG <> @AVERAGE
+	BEGIN
+		PRINT 'Average score added to [View] was not corresponding to the average scored counted from [Grade]'
+		ROLLBACK TRAN
+	END
+	ELSE IF (NOT @STA = 'PASSED') AND (NOT @STA = 'NOT PASSED')
+	BEGIN
+		PRINT 'Status must be passed or not passed'
+		ROLLBACK TRAN
+	END
+	ELSE IF (@AVG <= 4 AND @STA = 'PASSED') OR (@AVG > 4 AND @STA = 'NOT PASSED')
+	BEGIN
+		PRINT 'Incorrect Status'
+		ROLLBACK TRAN
+	END
+	
+	UPDATE [View] SET Average = 8.645, [Status] = 'ASDFK' WHERE Mssv = 'HE00001' AND ClassID = 'FA21APRO'
 
-SELECT * FROM Grade
+CREATE PROCEDURE Count_Student
+	@GR VARCHAR(50),
+	@COUNT INT OUT
+AS
+BEGIN
+	SELECT @COUNT = COUNT(Mssv) FROM [Join] WHERE GrID = @GR
+END
+
+DECLARE @NumOfStu INT = 0;
+EXEC Count_Student @GR = 'IA1604', @COUNT = @NumOfStu OUT
+PRINT @NumOfStu;
+
+
+
+
+	
 	
 
