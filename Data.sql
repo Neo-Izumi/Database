@@ -1,4 +1,131 @@
 ﻿
+	CREATE DATABASE [Student Grading Management Subsystem]
+
+	USE [Student Grading Management Subsystem]
+
+	CREATE TABLE Students (
+		[Mssv] [varchar](50) NOT NULL PRIMARY KEY,
+		[Email] [varchar](150) NOT NULL,
+		[First Name] [nvarchar](50) NOT NULL,
+		[Last Name] [nvarchar](150) NOT NULL,
+		[Gender] [bit] NOT NULL,
+		[Date of Birth] [date] NOT NULL,
+	)
+
+	CREATE TABLE Groups (
+		[GrID] [varchar](50) NOT NULL PRIMARY KEY,
+		[Major] [varchar](50) NOT NULL,
+		[Number of Students] [int] NOT NULL,
+	)
+
+	CREATE TABLE [Join] (
+		[Mssv] [varchar](50) NOT NULL,
+		[GrID] [varchar](50) NOT NULL,	
+	
+		CONSTRAINT [PK_Join] PRIMARY KEY (Mssv, GrID),
+		CONSTRAINT [FK_Join_Groups] FOREIGN KEY([GrID]) REFERENCES [dbo].[Groups] ([GrID]),
+		CONSTRAINT [FK_Join_Students] FOREIGN KEY([Mssv]) REFERENCES [dbo].[Students] ([Mssv])
+	)
+
+	CREATE TABLE Lecturers (
+		[LecID] [varchar](50) NOT NULL PRIMARY KEY,
+		[Email] [varchar](150) NOT NULL,
+		[First Name] [nvarchar](50) NOT NULL,
+		[Last Name] [nvarchar](150) NOT NULL,
+		[Gender] [bit] NOT NULL,
+		[Date of Birth] [date] NOT NULL,
+		[Report] [varchar](50) NULL,
+
+		CONSTRAINT [FK_Lecturers_Lecturers] FOREIGN KEY([Report]) REFERENCES [dbo].[Lecturers] ([LecID]),
+	)
+
+	CREATE TABLE Courses (
+		[CouID] [varchar](50) NOT NULL PRIMARY KEY,
+		[Name] [varchar](50) NOT NULL,
+	)
+
+	CREATE TABLE Assignment (
+		[AsnID] [varchar](50) NOT NULL PRIMARY KEY,
+		[Major] [varchar](50) NOT NULL,
+		[Lecturer] [varchar](50) NOT NULL,
+
+		CONSTRAINT [FK_Assignment_Courses] FOREIGN KEY([Major]) REFERENCES [dbo].[Courses] ([CouID]),
+		CONSTRAINT [FK_Assignment_Lecturers] FOREIGN KEY([Lecturer]) REFERENCES [dbo].[Lecturers] ([LecID]),
+	)
+
+	CREATE TABLE Classes (
+		[ClassID] [varchar](50) NOT NULL PRIMARY KEY,
+		[AsnID] [varchar](50) NOT NULL,
+		[Semester] [varchar](50) NOT NULL,
+		[Start Date] [date] NOT NULL,
+		[End Date] [date] NOT NULL,
+
+		CONSTRAINT [FK_Classes_Assignment] FOREIGN KEY([AsnID]) REFERENCES [dbo].[Assignment] ([AsnID]),
+
+	)
+
+	CREATE TABLE Enroll (
+		[ClassID] [varchar](50) NOT NULL,
+		[GrID] [varchar](50) NOT NULL,
+
+		CONSTRAINT [PK_Enroll] PRIMARY KEY (ClassID, GrID),
+		CONSTRAINT [FK_Enroll_Classes] FOREIGN KEY([ClassID]) REFERENCES [dbo].[Classes] ([ClassID]),
+		CONSTRAINT [FK_Enroll_Groups] FOREIGN KEY([GrID]) REFERENCES [dbo].[Groups] ([GrID])
+	)
+
+	CREATE TABLE Categories (
+		[CatID] [varchar](50) NOT NULL PRIMARY KEY ,
+		[Name] [varchar](50) NOT NULL,
+		[Type] [varchar](50) NOT NULL,
+		[Completion Criteria] [varchar](50) NOT NULL,
+	)
+
+	CREATE TABLE [Assessment System] (
+		[AsID] [varchar](50) NOT NULL PRIMARY KEY,
+		[CatID] [varchar](50) NOT NULL,
+		[CouID] [varchar](50) NOT NULL,
+		[Number of Questions] [int] NOT NULL,
+		[Duration] [varchar](50) NOT NULL,
+		[Weight] [float] NOT NULL,
+
+		CONSTRAINT [FK_Assessment System_Categories] FOREIGN KEY([CatID]) REFERENCES [dbo].[Categories] ([CatID]),
+		CONSTRAINT [FK_Assessment System_Courses] FOREIGN KEY([CouID]) REFERENCES [dbo].[Courses] ([CouID]),
+
+	)
+
+	CREATE TABLE Grade (
+		[Mssv] [varchar](50) NOT NULL,
+		[AsID] [varchar](50) NOT NULL,
+		[Score] [float] NOT NULL,
+		[Date] [date] NOT NULL,
+
+		CONSTRAINT [FK_Grade_Assessment System] FOREIGN KEY([AsID]) REFERENCES [dbo].[Assessment System] ([AsID]),
+		CONSTRAINT [FK_Grade_Students] FOREIGN KEY([Mssv]) REFERENCES [dbo].[Students] ([Mssv])
+
+		CONSTRAINT [PK_Grade] PRIMARY KEY (Mssv, AsID, [Date]),
+	)
+
+	CREATE TABLE [View] (
+		[Mssv] [varchar](50) NOT NULL,
+		[ClassID] [varchar](50) NOT NULL,
+		[Average] [float] NOT NULL,
+		[Status] [varchar](50) NOT NULL,
+ 
+		CONSTRAINT [PK_View] PRIMARY KEY (Mssv, ClassID),
+		CONSTRAINT [FK_View_Classes] FOREIGN KEY([ClassID]) REFERENCES [dbo].[Classes] ([ClassID]),
+		CONSTRAINT [FK_View_Students] FOREIGN KEY([Mssv]) REFERENCES [dbo].[Students] ([Mssv]),
+	)
+
+	CREATE TABLE Assess (
+		[AsID] [varchar](50) NOT NULL,
+		[ClassID] [varchar](50) NOT NULL,
+	
+		CONSTRAINT [PK_Assess] PRIMARY KEY (AsID, ClassID),
+		CONSTRAINT [FK_Assess_Assessment System] FOREIGN KEY([AsID]) REFERENCES [dbo].[Assessment System] ([AsID]),
+		CONSTRAINT [FK_Assess_Classes] FOREIGN KEY([ClassID]) REFERENCES [dbo].[Classes] ([ClassID])
+	)
+
+
 INSERT Students(Mssv, Email, [First Name], [Last Name], Gender, [Date of Birth]) VALUES ('HE00027', 'anv@fpt.edu.vn', 'A', N'Nguyễn Thị', 0, CAST('02-01-2002' AS DATE));
 INSERT Students(Mssv, Email, [First Name], [Last Name], Gender, [Date of Birth]) VALUES ('HE00028', 'bnv@fpt.edu.vn', 'B', N'Nguyễn Thị', 0, CAST('02-02-2002' AS DATE));
 INSERT Students(Mssv, Email, [First Name], [Last Name], Gender, [Date of Birth]) VALUES ('HE00029', 'cnv@fpt.edu.vn', 'C', N'Nguyễn Thị', 0, CAST('02-03-2002' AS DATE));
